@@ -22,7 +22,4 @@ services:
     plan: free
     envVars:
       - key: BACKEND_URL
-        fromService:
-          type: web
-          name: layoutloom-backend
-          property: host
+        value: https://layoutloom-backend-9kpx.onrender.com
