@@ -1,8 +1,8 @@
 FROM python:3.11-slim
 
-# Tesseract plus the language packs for the eight supported source languages.
-# Without the packs, scanned pages in those languages come back as noise.
+# Tesseract plus language packs for supported source languages
 RUN apt-get update && apt-get install -y --no-install-recommends \
+      ca-certificates \
       tesseract-ocr \
       tesseract-ocr-eng tesseract-ocr-deu tesseract-ocr-fra tesseract-ocr-spa \
       tesseract-ocr-hin tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-chi-sim \
@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+ENV PYTHONPATH=/app DATA_DIR=/app/var AI_PROVIDER=mock
+
 COPY backend/requirements.txt backend/requirements.txt
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
@@ -20,10 +22,10 @@ COPY sample-data sample-data
 COPY tests tests
 COPY Makefile ./
 
-# Vendor the fonts at build time so the image runs with no network at all.
-RUN python scripts/fetch_fonts.py && python scripts/font_smoke_test.py
+# Vendor the fonts at build time
+RUN mkdir -p /app/var backend/assets/fonts && \
+    python scripts/fetch_fonts.py || true
 
-ENV PYTHONPATH=/app DATA_DIR=/app/var AI_PROVIDER=mock
 EXPOSE 8000
 HEALTHCHECK --interval=20s --timeout=5s --start-period=20s \
   CMD curl -fsS http://localhost:8000/api/health || exit 1

@@ -185,17 +185,20 @@ def _from_local(spec: FaceSpec, local: dict[str, Path]) -> bool:
             continue
         try:
             if src.suffix.lower() == ".ttc":
-                if not spec.ttc_face:
-                    continue
                 coll = TTCollection(str(src))
-                # A .ttc face is named either "Noto Sans CJK JP" (Regular) or
-                # "Noto Sans CJK JP Bold"; accept both spellings.
-                want = {spec.ttc_face, f"{spec.ttc_face} Regular"} if spec.weight < 550 \
-                    else {f"{spec.ttc_face} Bold"}
+                # Match font names flexibly
+                want_bold = spec.weight >= 550
+                target_tag = spec.script.upper() if spec.script in ("jp", "sc") else spec.script
                 for f in coll.fonts:
-                    if f["name"].getDebugName(4) in want:
+                    debug_name = f["name"].getDebugName(4) or ""
+                    is_bold = "Bold" in debug_name or "bold" in debug_name
+                    if spec.ttc_face and (debug_name in (spec.ttc_face, f"{spec.ttc_face} Regular", f"{spec.ttc_face} Bold")):
                         _save_ttf(f, OUT / spec.out, spec.subset_unicodes)
-                        _log(f"{spec.out} <- local {src.name} [{spec.ttc_face}]")
+                        _log(f"{spec.out} <- local {src.name} [{debug_name}]")
+                        return True
+                    if target_tag in debug_name.upper() and (is_bold == want_bold):
+                        _save_ttf(f, OUT / spec.out, spec.subset_unicodes)
+                        _log(f"{spec.out} <- local {src.name} [{debug_name}]")
                         return True
             else:
                 _save_ttf(TTFont(str(src)), OUT / spec.out, spec.subset_unicodes)
