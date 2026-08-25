@@ -1,0 +1,36 @@
+{
+  "source_lang": "de",
+  "notes": "German compounds contract; merged cells and ruling lines must not move",
+  "page_count": 4,
+  "page_sizes": [
+    [
+      595.0,
+      842.0
+    ],
+    [
+      595.0,
+      842.0
+    ],
+    [
+      595.0,
+      842.0
+    ],
+    [
+      612.0,
+      792.0
+    ]
+  ],
+  "authored_elements": {
+    "header": 8,
+    "footer": 4,
+    "heading": 5,
+    "paragraph": 8,
+    "list_marker": 6,
+    "list_item": 6,
+    "table_cell": 58,
+    "table": 3,
+    "merged_cell": 1,
+    "code": 1,
+    "signature": 1
+  }
+}

@@ -1,0 +1,18 @@
+# runtime data (uploads, renders, generated PDFs, sqlite)
+var/
+# vendored fonts are a build artifact: run `make fonts`
+backend/assets/fonts/*.ttf
+backend/assets/fonts/*.otf
+backend/assets/fonts/*.ttc
+backend/assets/fonts/manifest.json
+# generated samples
+sample-data/*.pdf
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+node_modules/
+.next/
+out/
+.env
+.DS_Store

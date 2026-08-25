@@ -1,0 +1,44 @@
+{
+  "source_lang": "en",
+  "columns": 2,
+  "notes": "two-column reading order and table structure",
+  "page_count": 6,
+  "page_sizes": [
+    [
+      612.0,
+      792.0
+    ],
+    [
+      612.0,
+      792.0
+    ],
+    [
+      612.0,
+      792.0
+    ],
+    [
+      612.0,
+      792.0
+    ],
+    [
+      612.0,
+      792.0
+    ],
+    [
+      612.0,
+      792.0
+    ]
+  ],
+  "authored_elements": {
+    "header": 6,
+    "page_number": 6,
+    "heading": 4,
+    "paragraph": 76,
+    "equation": 1,
+    "figure": 1,
+    "caption": 2,
+    "table_cell": 25,
+    "table": 1,
+    "footnote": 1
+  }
+}

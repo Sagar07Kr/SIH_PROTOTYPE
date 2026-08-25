@@ -1,0 +1,48 @@
+# `docker compose up --build` gives a working demo with no API key and no
+# outbound network access from the containers.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      AI_PROVIDER: ${AI_PROVIDER:-mock}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_BASE_URL: ${AI_BASE_URL:-https://api.openai.com/v1}
+      AI_MODEL: ${AI_MODEL:-gpt-4o-mini}
+      MOCK_LATENCY_SCALE: ${MOCK_LATENCY_SCALE:-1.0}
+      DATABASE_URL: ${DATABASE_URL:-}
+      DATA_DIR: /app/var
+    volumes:
+      - api-data:/app/var
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    environment:
+      BACKEND_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  # Optional: PostgreSQL instead of SQLite. Start with
+  #   docker compose --profile postgres up
+  # and set DATABASE_URL for the api service.
+  db:
+    profiles: ["postgres"]
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: layoutloom
+      POSTGRES_PASSWORD: layoutloom
+      POSTGRES_DB: layoutloom
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  api-data:
+  db-data:

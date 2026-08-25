@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface: #f6f6f4;
+  --panel: #ffffff;
+  --ink: #16181c;
+  --muted: #6a6f78;
+  --line: #dcdcd8;
+  --accent: #1f4b99;
+  --ok: #1c6b45;
+  --warn: #8a5a00;
+  --bad: #99231f;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --surface: #131519;
+  --panel: #1a1d22;
+  --ink: #e8e8e6;
+  --muted: #9aa0aa;
+  --line: #2c3037;
+  --accent: #7aa2e3;
+  --ok: #6cc39a;
+  --warn: #e0b060;
+  --bad: #e58b83;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 1, "cv05" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Restrained motion: state changes are visible, nothing slides or bounces. */
+* { transition: background-color 120ms linear, border-color 120ms linear, color 120ms linear; }
+
+.hairline { border: 1px solid var(--line); }
+.panel { background: var(--panel); border: 1px solid var(--line); }
+.tabular { font-variant-numeric: tabular-nums; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; }
+::-webkit-scrollbar-track { background: transparent; }

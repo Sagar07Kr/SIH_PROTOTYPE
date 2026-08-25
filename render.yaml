@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: layoutloom-backend
+    runtime: docker
+    dockerfilePath: Dockerfile.backend
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: AI_PROVIDER
+        value: mock
+      - key: DATA_DIR
+        value: /app/var
+      - key: PYTHONPATH
+        value: /app
+
+  - type: web
+    name: layoutloom-frontend
+    runtime: docker
+    dockerfilePath: Dockerfile.frontend
+    dockerContext: .
+    plan: starter
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: layoutloom-backend
+          property: host

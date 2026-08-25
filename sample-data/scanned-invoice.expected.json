@@ -1,0 +1,21 @@
+{
+  "source_lang": "en",
+  "is_scanned": true,
+  "dpi": 200,
+  "skew_deg": -1.15,
+  "extractable_chars": 0,
+  "page_count": 1,
+  "page_sizes": [
+    [
+      612.0,
+      792.0
+    ]
+  ],
+  "authored_elements": {
+    "heading": 2,
+    "paragraph": 5,
+    "table_cell": 30,
+    "table": 1
+  },
+  "notes": "image-only page: forces OCR + inpainting reconstruction"
+}

@@ -1,0 +1,24 @@
+{
+  "source_lang": "hi",
+  "notes": "vector seal must survive redaction (I3)",
+  "page_count": 2,
+  "page_sizes": [
+    [
+      595.0,
+      842.0
+    ],
+    [
+      612.0,
+      792.0
+    ]
+  ],
+  "authored_elements": {
+    "header": 2,
+    "paragraph": 3,
+    "heading": 1,
+    "list_marker": 5,
+    "list_item": 5,
+    "footer": 2,
+    "signature": 1
+  }
+}
