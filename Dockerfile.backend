@@ -22,9 +22,10 @@ COPY sample-data sample-data
 COPY tests tests
 COPY Makefile ./
 
-# Vendor the fonts at build time
+# Vendor the fonts and generate sample data at build time
 RUN mkdir -p /app/var backend/assets/fonts && \
-    python scripts/fetch_fonts.py || true
+    python scripts/fetch_fonts.py || true && \
+    python scripts/make_samples.py || true
 
 EXPOSE 8000
 HEALTHCHECK --interval=20s --timeout=5s --start-period=20s \
